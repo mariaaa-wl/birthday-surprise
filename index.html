@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>A Little Something</title>
+<title>something special ♡</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
 *{
@@ -17,76 +17,179 @@
 }
 
 :root{
-  --bg:#0a0a0b;
-  --text:#f2eee8;
-  --muted:#92908e;
-  --line:rgba(255,255,255,.13);
-  --accent:#8d5360;
+  --bg:#080809;
+  --cream:#f3eee7;
+  --soft:#aaa39d;
+  --dim:#625e5b;
+  --line:rgba(243,238,231,.14);
+  --wine:#8e4e5d;
+  --wine2:#b86b7b;
+}
+
+html,body{
+  width:100%;
+  min-height:100%;
 }
 
 body{
-  min-height:100vh;
   background:var(--bg);
-  color:var(--text);
+  color:var(--cream);
   font-family:"DM Sans",sans-serif;
   overflow:hidden;
 }
 
+/* cinematic grain */
 body:before{
   content:"";
   position:fixed;
-  inset:0;
+  inset:-50%;
+  width:200%;
+  height:200%;
   pointer-events:none;
-  opacity:.035;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  z-index:20;
+  z-index:100;
+  opacity:.045;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grain .18s steps(2) infinite;
 }
 
+@keyframes grain{
+  0%{transform:translate(0,0)}
+  25%{transform:translate(2%,-1%)}
+  50%{transform:translate(-1%,2%)}
+  75%{transform:translate(1%,1%)}
+  100%{transform:translate(-2%,-1%)}
+}
+
+/* glow */
+body:after{
+  content:"";
+  position:fixed;
+  width:55vw;
+  height:55vw;
+  max-width:600px;
+  max-height:600px;
+  left:50%;
+  top:45%;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(142,78,93,.14),transparent 68%);
+  pointer-events:none;
+}
+
+/* corner decoration */
+.corner{
+  position:fixed;
+  width:55px;
+  height:55px;
+  border-color:rgba(243,238,231,.18);
+  z-index:30;
+  pointer-events:none;
+}
+
+.corner.tl{
+  top:22px;
+  left:22px;
+  border-top:1px solid;
+  border-left:1px solid;
+}
+
+.corner.tr{
+  top:22px;
+  right:22px;
+  border-top:1px solid;
+  border-right:1px solid;
+}
+
+.corner.bl{
+  bottom:22px;
+  left:22px;
+  border-bottom:1px solid;
+  border-left:1px solid;
+}
+
+.corner.br{
+  bottom:22px;
+  right:22px;
+  border-bottom:1px solid;
+  border-right:1px solid;
+}
+
+/* tiny floating symbols */
+.float{
+  position:fixed;
+  color:rgba(243,238,231,.28);
+  font-size:12px;
+  pointer-events:none;
+  z-index:3;
+  animation:float 6s ease-in-out infinite;
+}
+
+.f1{left:12%;top:22%;animation-delay:-2s}
+.f2{right:13%;top:30%;animation-delay:-4s}
+.f3{left:18%;bottom:23%;animation-delay:-1s}
+.f4{right:20%;bottom:19%;animation-delay:-3s}
+
+@keyframes float{
+  0%,100%{transform:translateY(0) rotate(0deg);opacity:.25}
+  50%{transform:translateY(-15px) rotate(8deg);opacity:.6}
+}
+
+/* screens */
 .screen{
   position:absolute;
   inset:0;
   min-height:100vh;
+  padding:70px 28px;
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:30px;
   text-align:center;
   opacity:0;
   visibility:hidden;
-  transform:translateY(18px) scale(.985);
-  transition:opacity .8s ease, transform .8s ease, visibility .8s;
+  transform:translateY(25px) scale(.97);
+  filter:blur(7px);
+  transition:
+    opacity .9s ease,
+    transform .9s cubic-bezier(.2,.8,.2,1),
+    filter .9s ease,
+    visibility .9s;
 }
 
 .screen.active{
   opacity:1;
   visibility:visible;
   transform:translateY(0) scale(1);
+  filter:blur(0);
 }
 
 .content{
-  width:min(680px,100%);
+  width:min(720px,100%);
+  position:relative;
+  z-index:5;
 }
 
 .eyebrow{
-  color:var(--muted);
+  color:var(--dim);
+  font-size:9px;
+  letter-spacing:.38em;
   text-transform:uppercase;
-  letter-spacing:.28em;
-  font-size:10px;
-  margin-bottom:26px;
+  margin-bottom:24px;
 }
 
 h1,h2{
   font-family:"Playfair Display",serif;
-  font-weight:500;
-  line-height:1.05;
+  font-weight:400;
+  line-height:1.03;
 }
 
-.hero-title{
-  font-size:clamp(46px,13vw,92px);
+.hero{
+  font-size:clamp(45px,12vw,95px);
+  letter-spacing:-.045em;
 }
 
 .title{
-  font-size:clamp(40px,10vw,72px);
+  font-size:clamp(42px,10vw,78px);
+  letter-spacing:-.04em;
 }
 
 .italic{
@@ -94,218 +197,394 @@ h1,h2{
 }
 
 .sub{
-  color:#aaa7a3;
-  font-size:14px;
-  line-height:1.8;
-  margin:24px auto 38px;
-  max-width:420px;
+  max-width:440px;
+  margin:25px auto 38px;
+  color:var(--soft);
+  font-size:13px;
+  line-height:1.9;
 }
 
-button{
+.accent{
+  color:var(--wine2);
+}
+
+.divider{
+  width:60px;
+  height:1px;
+  background:var(--line);
+  margin:25px auto;
+}
+
+/* buttons */
+.btn{
+  position:relative;
   border:1px solid var(--line);
   background:rgba(255,255,255,.025);
-  color:var(--text);
-  padding:14px 24px;
+  color:var(--cream);
+  padding:15px 27px;
+  min-width:145px;
   border-radius:100px;
-  font:500 11px "DM Sans",sans-serif;
-  letter-spacing:.16em;
+  font:500 10px "DM Sans",sans-serif;
+  letter-spacing:.19em;
   text-transform:uppercase;
   cursor:pointer;
-  transition:.3s ease;
-}
-
-button:hover{
-  background:#f2eee8;
-  color:#0a0a0b;
-  transform:translateY(-2px);
-}
-
-button:active{
-  transform:scale(.96);
-}
-
-.small{
-  margin-top:18px;
-  color:#666;
-  font-size:11px;
-}
-
-.fake-visual{
-  width:min(330px,80vw);
-  height:230px;
-  margin:0 auto 32px;
-  border:1px solid var(--line);
-  position:relative;
+  transition:.35s ease;
   overflow:hidden;
-  background:
-    radial-gradient(circle at 70% 30%,rgba(141,83,96,.32),transparent 32%),
-    radial-gradient(circle at 25% 80%,rgba(255,255,255,.08),transparent 30%),
-    #111113;
 }
 
-.fake-visual:after{
+.btn:before{
   content:"";
   position:absolute;
-  inset:20px;
-  border:1px solid rgba(255,255,255,.08);
+  inset:0;
+  background:var(--cream);
+  transform:translateY(100%);
+  transition:.35s ease;
+  z-index:-1;
 }
 
-.fake-word{
+.btn:hover{
+  color:#09090a;
+  transform:translateY(-3px);
+}
+
+.btn:hover:before{
+  transform:translateY(0);
+}
+
+.btn:active{
+  transform:scale(.95);
+}
+
+/* little intro symbol */
+.symbol{
+  font-size:18px;
+  color:var(--wine2);
+  margin-bottom:20px;
+  animation:pulse 2.5s ease-in-out infinite;
+}
+
+@keyframes pulse{
+  50%{opacity:.4;transform:scale(.9)}
+}
+
+/* fake reveal card */
+.fake-card{
+  width:min(370px,85vw);
+  height:240px;
+  margin:0 auto 34px;
+  position:relative;
+  overflow:hidden;
+  border:1px solid var(--line);
+  background:
+    linear-gradient(125deg,transparent 0 35%,rgba(255,255,255,.04) 36% 37%,transparent 38%),
+    radial-gradient(circle at 70% 25%,rgba(142,78,93,.34),transparent 35%),
+    radial-gradient(circle at 25% 85%,rgba(255,255,255,.07),transparent 30%),
+    #111113;
+  box-shadow:0 30px 80px rgba(0,0,0,.35);
+}
+
+.fake-card:before{
+  content:"";
+  position:absolute;
+  inset:15px;
+  border:1px solid rgba(243,238,231,.09);
+}
+
+.fake-card span{
   position:absolute;
   inset:0;
   display:flex;
   align-items:center;
   justify-content:center;
   font-family:"Playfair Display",serif;
-  font-size:28px;
   font-style:italic;
-  color:rgba(242,238,232,.7);
+  font-size:32px;
+  color:rgba(243,238,231,.65);
 }
 
+.fake-card small{
+  position:absolute;
+  bottom:25px;
+  left:0;
+  right:0;
+  font-size:8px;
+  letter-spacing:.3em;
+  color:#706b67;
+  text-transform:uppercase;
+}
+
+/* teasing */
 .tease{
-  color:#b87885;
-  font-size:13px;
-  letter-spacing:.08em;
-  margin:15px 0 30px;
+  margin:17px 0 30px;
+  color:var(--wine2);
+  font-size:12px;
+  letter-spacing:.12em;
 }
 
+.eye{
+  display:inline-block;
+  margin-left:4px;
+}
+
+/* reveal */
 .reveal{
   background:
-    radial-gradient(circle at 50% 40%,rgba(141,83,96,.20),transparent 38%),
+    radial-gradient(circle at 50% 45%,rgba(142,78,93,.19),transparent 42%),
     var(--bg);
 }
 
-.big-birthday{
-  font-size:clamp(44px,12vw,96px);
+.reveal .content{
+  animation:revealIn 1.5s ease both;
+}
+
+@keyframes revealIn{
+  from{opacity:0;transform:scale(.9)}
+  to{opacity:1;transform:scale(1)}
+}
+
+.birthday{
+  font-size:clamp(43px,12vw,105px);
   text-transform:uppercase;
-  letter-spacing:-.04em;
+  letter-spacing:-.06em;
 }
 
 .love{
+  margin-top:18px;
   font-family:"Playfair Display",serif;
+  font-size:clamp(25px,6vw,46px);
   font-style:italic;
-  font-size:clamp(25px,6vw,43px);
-  margin-top:20px;
 }
 
-.photo-placeholder{
-  width:min(430px,85vw);
-  height:280px;
-  margin:38px auto 28px;
-  overflow:hidden;
+.stars{
+  margin:20px 0;
+  color:var(--wine2);
+  letter-spacing:.6em;
+}
+
+/* photo area */
+.photo-frame{
+  width:min(440px,88vw);
+  height:285px;
+  margin:34px auto 28px;
+  position:relative;
   border:1px solid var(--line);
-  background:linear-gradient(135deg,#181719,#0d0d0e);
+  padding:10px;
+  background:#101011;
+  box-shadow:0 35px 90px rgba(0,0,0,.45);
+  transform:rotate(-1.2deg);
+}
+
+.photo-frame:before{
+  content:"♡";
+  position:absolute;
+  top:-13px;
+  right:-10px;
+  width:27px;
+  height:27px;
+  border:1px solid var(--line);
+  border-radius:50%;
+  background:#0a0a0b;
   display:flex;
   align-items:center;
   justify-content:center;
-  color:#686568;
-  font-size:11px;
-  letter-spacing:.16em;
-  text-transform:uppercase;
+  color:var(--wine2);
+  font-size:12px;
+  z-index:3;
 }
 
-.photo-placeholder img{
+.photo{
+  width:100%;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:
+    linear-gradient(135deg,#191719,#0c0c0d);
+  color:#625e5b;
+  font-size:9px;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  overflow:hidden;
+}
+
+.photo img{
   width:100%;
   height:100%;
   object-fit:cover;
 }
 
+/* letter */
 .letter-screen{
   overflow-y:auto;
-  padding:70px 25px;
+  align-items:flex-start;
+  padding-top:100px;
+  padding-bottom:100px;
 }
 
-.letter{
-  max-width:650px;
+.letter-box{
+  width:min(680px,100%);
   text-align:left;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  padding:45px 5px;
 }
 
-.letter h2{
-  font-size:clamp(36px,8vw,62px);
+.letter-title{
+  font-size:clamp(38px,9vw,65px);
   margin-bottom:35px;
 }
 
-.letter p{
-  color:#b4b0ac;
-  font-size:15px;
+.letter-box p{
+  color:#aaa39d;
+  font-size:14px;
   line-height:2;
-  margin-bottom:22px;
+  margin-bottom:23px;
 }
 
 .signature{
-  color:var(--text)!important;
+  color:var(--cream)!important;
   font-family:"Playfair Display",serif;
-  font-size:23px!important;
+  font-size:24px!important;
   font-style:italic;
-  margin-top:35px;
+  margin-top:40px;
 }
 
+/* music */
 .music{
   position:fixed;
-  right:20px;
-  top:20px;
-  z-index:50;
+  right:28px;
+  top:28px;
+  z-index:80;
   width:38px;
   height:38px;
   padding:0;
+  min-width:0;
   border-radius:50%;
-  font-size:13px;
   display:none;
   align-items:center;
   justify-content:center;
+  font-size:13px;
 }
 
+.music.playing{
+  animation:musicPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes musicPulse{
+  50%{box-shadow:0 0 0 7px rgba(142,78,93,.08)}
+}
+
+/* progress */
 .progress{
   position:fixed;
-  left:25px;
-  bottom:24px;
-  color:#555;
-  font-size:9px;
-  letter-spacing:.18em;
-  z-index:30;
+  left:29px;
+  bottom:28px;
+  z-index:80;
+  color:#504c49;
+  font-size:8px;
+  letter-spacing:.25em;
 }
 
+/* mobile */
 @media(max-width:600px){
-  .screen{padding:24px}
-  .fake-visual{height:200px}
+
+  .corner{
+    width:38px;
+    height:38px;
+  }
+
+  .corner.tl,.corner.tr{top:15px}
+  .corner.bl,.corner.br{bottom:15px}
+
+  .corner.tl,.corner.bl{left:15px}
+  .corner.tr,.corner.br{right:15px}
+
+  .screen{
+    padding:65px 24px;
+  }
+
+  .fake-card{
+    height:210px;
+  }
+
+  .photo-frame{
+    height:250px;
+  }
+
+  .letter-screen{
+    padding-top:90px;
+  }
+
+  .music{
+    top:20px;
+    right:20px;
+  }
+
+  .progress{
+    left:20px;
+    bottom:20px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<!-- MUSIC: পরে song.mp3 নামে music upload করলে এখানে কাজ করবে -->
+<!-- decorative corners -->
+<div class="corner tl"></div>
+<div class="corner tr"></div>
+<div class="corner bl"></div>
+<div class="corner br"></div>
+
+<!-- floating details -->
+<div class="float f1">✦</div>
+<div class="float f2">♡</div>
+<div class="float f3">·</div>
+<div class="float f4">✦</div>
+
+<!-- MUSIC -->
 <audio id="music" loop>
   <source src="song.mp3" type="audio/mpeg">
 </audio>
 
-<button class="music" id="musicBtn" onclick="toggleMusic()">♫</button>
+<button class="btn music" id="musicBtn" onclick="toggleMusic()">♫</button>
 
-<div class="progress" id="progress">01 / 07</div>
+<div class="progress" id="progress">01 — 08</div>
 
-<!-- SCREEN 1 -->
+
+<!-- 01 -->
 <section class="screen active" id="s1">
   <div class="content">
-    <div class="eyebrow">for someone special</div>
 
-    <h1 class="hero-title">
+    <div class="symbol">✦</div>
+
+    <div class="eyebrow">a little something</div>
+
+    <h1 class="hero">
       there's something<br>
-      <span class="italic">special</span> for you.
+      <span class="italic">special</span> for you. ♡
     </h1>
+
+    <div class="divider"></div>
 
     <p class="sub">
       I could've just wished you a happy birthday.<br>
-      But where's the fun in that?
+      But honestly... where's the fun in that? :)
     </p>
 
-    <button onclick="go(2); startMusic()">enter →</button>
+    <button class="btn" onclick="go(2); startMusic()">
+      enter ✦
+    </button>
+
   </div>
 </section>
 
-<!-- SCREEN 2 -->
+
+<!-- 02 -->
 <section class="screen" id="s2">
   <div class="content">
-    <div class="eyebrow">a little secret</div>
+
+    <div class="eyebrow">01 / the beginning</div>
 
     <h2 class="title">
       I made something<br>
@@ -313,37 +592,53 @@ button:active{
     </h2>
 
     <p class="sub">
-      There's only one tiny problem...
-      you're going to have to find it.
+      There's just one tiny problem...<br>
+      you're going to have to find it. 👀
     </p>
 
-    <button onclick="go(3)">show me</button>
+    <button class="btn" onclick="go(3)">
+      show me →
+    </button>
+
   </div>
 </section>
 
-<!-- SCREEN 3 -->
+
+<!-- 03 -->
 <section class="screen" id="s3">
   <div class="content">
 
-    <div class="fake-visual">
-      <div class="fake-word">not yet.</div>
+    <div class="fake-card">
+      <span>not yet.</span>
+      <small>wrong door ♡</small>
     </div>
 
-    <div class="eyebrow">attempt 01</div>
+    <div class="eyebrow">02 / first attempt</div>
 
-    <h2 class="title">you really thought<br>that was it?</h2>
+    <h2 class="title">
+      you really thought<br>
+      <span class="italic">that was it?</span>
+    </h2>
 
-    <div class="tease">cute.</div>
+    <div class="tease">
+      cute. but no. 👀
+    </div>
 
-    <button onclick="go(4)">try again →</button>
+    <button class="btn" onclick="go(4)">
+      try again →
+    </button>
+
   </div>
 </section>
 
-<!-- SCREEN 4 -->
+
+<!-- 04 -->
 <section class="screen" id="s4">
   <div class="content">
 
-    <div class="eyebrow">attempt 02</div>
+    <div class="symbol">♡</div>
+
+    <div class="eyebrow">03 / second attempt</div>
 
     <h2 class="title">
       no.
@@ -351,80 +646,123 @@ button:active{
 
     <p class="sub">
       You're gonna have to work<br>
-      a little harder than that.
+      <span class="italic">a little harder</span> than that.
     </p>
 
-    <button onclick="go(5)">again</button>
+    <div class="tease">
+      don't give up now. :)
+    </div>
+
+    <button class="btn" onclick="go(5)">
+      again
+    </button>
+
   </div>
 </section>
 
-<!-- SCREEN 5 -->
+
+<!-- 05 -->
 <section class="screen" id="s5">
   <div class="content">
 
-    <div class="eyebrow">attempt 03</div>
+    <div class="eyebrow">04 / third attempt</div>
 
     <h2 class="title">
       still trying?
     </h2>
 
+    <div class="divider"></div>
+
     <p class="sub">
       I didn't know you wanted it<br>
-      <span class="italic">this badly.</span>
+      <span class="italic">this badly.</span> 🫦
     </p>
 
-    <div class="tease">don't get shy now.</div>
+    <div class="tease">
+      oh, you're persistent. I like that. ♡
+    </div>
 
-    <button onclick="go(6)">one more time →</button>
+    <button class="btn" onclick="go(6)">
+      one more time →
+    </button>
+
   </div>
 </section>
 
-<!-- SCREEN 6 -->
+
+<!-- 06 -->
 <section class="screen" id="s6">
   <div class="content">
 
-    <div class="eyebrow">fine.</div>
+    <div class="symbol">✦</div>
+
+    <div class="eyebrow">05 / almost</div>
 
     <h2 class="title">
       okay, okay...
     </h2>
 
     <p class="sub">
-      You've earned the real one.
+      Maybe you actually deserve<br>
+      the real one.
     </p>
 
-    <button onclick="go(7)">don't mess this up.</button>
+    <div class="tease">
+      don't get too excited yet. ;)
+    </div>
+
+    <button class="btn" onclick="go(7)">
+      prove it →
+    </button>
+
   </div>
 </section>
 
-<!-- SCREEN 7 — REAL REVEAL -->
+
+<!-- 07 REAL REVEAL -->
 <section class="screen reveal" id="s7">
   <div class="content">
 
-    <div class="eyebrow">finally</div>
+    <div class="eyebrow">06 / finally</div>
 
-    <h1 class="big-birthday">happy birthday.</h1>
+    <h1 class="birthday">
+      happy birthday.
+    </h1>
 
-    <div class="love">I love you so much.</div>
+    <div class="stars">✦ · ♡ · ✦</div>
 
-    <div class="photo-placeholder">
-      <!-- পরে এখানে তোমাদের ছবি বসবে -->
-      your photo goes here
+    <div class="love">
+      I love you so much. ♡
     </div>
 
-    <button onclick="go(8)">there's more ↓</button>
+    <div class="photo-frame">
+      <div class="photo">
+        <!-- YOUR PHOTO WILL GO HERE -->
+        your favorite picture goes here ✦
+      </div>
+    </div>
+
+    <p class="sub">
+      yes, <span class="accent">this</span> was the thing. 🤍
+    </p>
+
+    <button class="btn" onclick="go(8)">
+      there's more ↓
+    </button>
+
   </div>
 </section>
 
-<!-- SCREEN 8 — LETTER -->
+
+<!-- 08 LETTER -->
 <section class="screen letter-screen" id="s8">
-  <div class="letter">
+  <div class="letter-box">
 
-    <div class="eyebrow">a little message</div>
+    <div class="eyebrow">07 / for you, always</div>
 
-    <h2>
+    <h2 class="letter-title">
       things I don't<br>
-      <span class="italic">say enough.</span>
+      <span class="italic">say enough. ♡</span>
     </h2>
 
     <p>
@@ -432,34 +770,45 @@ button:active{
     </p>
 
     <p>
-      This is where your actual message goes.
-      I'll replace this with your own words later,
-      so it sounds exactly like you.
+      This is the part where I'll stop teasing you for a second.
+      Because underneath all the nonsense, you really are someone
+      incredibly special to me.
     </p>
 
     <p>
-      Until then, just know that having you in my life
-      means more to me than I probably know how to put
-      into words.
+      I hope this birthday brings you the kind of happiness
+      that stays long after the candles are gone. I hope you
+      get everything you've been quietly wishing for — and
+      maybe a little more than that. ✦
     </p>
 
     <p>
-      I hope this year gives you everything you've been
-      quietly wishing for.
+      Thank you for being you. For the memories, the laughs,
+      the stupid little moments, and all the things that somehow
+      became my favourite things.
+    </p>
+
+    <p>
+      And if you ever forget how loved you are,
+      I hope you come back to this little corner of the internet
+      and remember.
     </p>
 
     <p class="signature">
-      Happy birthday, idiot.<br>
-      ♡
+      Happy birthday, idiot. ♡<br>
+      I love you. Always.
     </p>
 
   </div>
 </section>
 
+
 <script>
+
 let current = 1;
 
 function go(number){
+
   const oldScreen = document.getElementById("s" + current);
   const newScreen = document.getElementById("s" + number);
 
@@ -469,7 +818,7 @@ function go(number){
 
   setTimeout(() => {
     newScreen.classList.add("active");
-  }, 120);
+  },120);
 
   current = number;
 
@@ -480,34 +829,47 @@ function go(number){
   }else{
     progress.style.display = "block";
     progress.textContent =
-      String(number).padStart(2,"0") + " / 06";
+      String(number).padStart(2,"0") + " — 08";
   }
 
   window.scrollTo(0,0);
 }
 
+
+/* MUSIC */
+
 const music = document.getElementById("music");
 const musicBtn = document.getElementById("musicBtn");
 
 function startMusic(){
-  music.volume = 0.35;
+
+  music.volume = 0.32;
 
   music.play().then(() => {
     musicBtn.style.display = "flex";
+    musicBtn.classList.add("playing");
   }).catch(() => {
     musicBtn.style.display = "flex";
   });
 }
 
 function toggleMusic(){
+
   if(music.paused){
+
     music.play();
     musicBtn.textContent = "♫";
+    musicBtn.classList.add("playing");
+
   }else{
+
     music.pause();
     musicBtn.textContent = "×";
+    musicBtn.classList.remove("playing");
+
   }
 }
+
 </script>
 
 </body>
