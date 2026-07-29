@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Little Something</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+:root{
+  --bg:#0a0a0b;
+  --text:#f2eee8;
+  --muted:#92908e;
+  --line:rgba(255,255,255,.13);
+  --accent:#8d5360;
+}
+
+body{
+  min-height:100vh;
+  background:var(--bg);
+  color:var(--text);
+  font-family:"DM Sans",sans-serif;
+  overflow:hidden;
+}
+
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.035;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  z-index:20;
+}
+
+.screen{
+  position:absolute;
+  inset:0;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:30px;
+  text-align:center;
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(18px) scale(.985);
+  transition:opacity .8s ease, transform .8s ease, visibility .8s;
+}
+
+.screen.active{
+  opacity:1;
+  visibility:visible;
+  transform:translateY(0) scale(1);
+}
+
+.content{
+  width:min(680px,100%);
+}
+
+.eyebrow{
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:.28em;
+  font-size:10px;
+  margin-bottom:26px;
+}
+
+h1,h2{
+  font-family:"Playfair Display",serif;
+  font-weight:500;
+  line-height:1.05;
+}
+
+.hero-title{
+  font-size:clamp(46px,13vw,92px);
+}
+
+.title{
+  font-size:clamp(40px,10vw,72px);
+}
+
+.italic{
+  font-style:italic;
+}
+
+.sub{
+  color:#aaa7a3;
+  font-size:14px;
+  line-height:1.8;
+  margin:24px auto 38px;
+  max-width:420px;
+}
+
+button{
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.025);
+  color:var(--text);
+  padding:14px 24px;
+  border-radius:100px;
+  font:500 11px "DM Sans",sans-serif;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:.3s ease;
+}
+
+button:hover{
+  background:#f2eee8;
+  color:#0a0a0b;
+  transform:translateY(-2px);
+}
+
+button:active{
+  transform:scale(.96);
+}
+
+.small{
+  margin-top:18px;
+  color:#666;
+  font-size:11px;
+}
+
+.fake-visual{
+  width:min(330px,80vw);
+  height:230px;
+  margin:0 auto 32px;
+  border:1px solid var(--line);
+  position:relative;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 70% 30%,rgba(141,83,96,.32),transparent 32%),
+    radial-gradient(circle at 25% 80%,rgba(255,255,255,.08),transparent 30%),
+    #111113;
+}
+
+.fake-visual:after{
+  content:"";
+  position:absolute;
+  inset:20px;
+  border:1px solid rgba(255,255,255,.08);
+}
+
+.fake-word{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:"Playfair Display",serif;
+  font-size:28px;
+  font-style:italic;
+  color:rgba(242,238,232,.7);
+}
+
+.tease{
+  color:#b87885;
+  font-size:13px;
+  letter-spacing:.08em;
+  margin:15px 0 30px;
+}
+
+.reveal{
+  background:
+    radial-gradient(circle at 50% 40%,rgba(141,83,96,.20),transparent 38%),
+    var(--bg);
+}
+
+.big-birthday{
+  font-size:clamp(44px,12vw,96px);
+  text-transform:uppercase;
+  letter-spacing:-.04em;
+}
+
+.love{
+  font-family:"Playfair Display",serif;
+  font-style:italic;
+  font-size:clamp(25px,6vw,43px);
+  margin-top:20px;
+}
+
+.photo-placeholder{
+  width:min(430px,85vw);
+  height:280px;
+  margin:38px auto 28px;
+  overflow:hidden;
+  border:1px solid var(--line);
+  background:linear-gradient(135deg,#181719,#0d0d0e);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#686568;
+  font-size:11px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+}
+
+.photo-placeholder img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.letter-screen{
+  overflow-y:auto;
+  padding:70px 25px;
+}
+
+.letter{
+  max-width:650px;
+  text-align:left;
+}
+
+.letter h2{
+  font-size:clamp(36px,8vw,62px);
+  margin-bottom:35px;
+}
+
+.letter p{
+  color:#b4b0ac;
+  font-size:15px;
+  line-height:2;
+  margin-bottom:22px;
+}
+
+.signature{
+  color:var(--text)!important;
+  font-family:"Playfair Display",serif;
+  font-size:23px!important;
+  font-style:italic;
+  margin-top:35px;
+}
+
+.music{
+  position:fixed;
+  right:20px;
+  top:20px;
+  z-index:50;
+  width:38px;
+  height:38px;
+  padding:0;
+  border-radius:50%;
+  font-size:13px;
+  display:none;
+  align-items:center;
+  justify-content:center;
+}
+
+.progress{
+  position:fixed;
+  left:25px;
+  bottom:24px;
+  color:#555;
+  font-size:9px;
+  letter-spacing:.18em;
+  z-index:30;
+}
+
+@media(max-width:600px){
+  .screen{padding:24px}
+  .fake-visual{height:200px}
+}
+</style>
+</head>
+
+<body>
+
+<!-- MUSIC: পরে song.mp3 নামে music upload করলে এখানে কাজ করবে -->
+<audio id="music" loop>
+  <source src="song.mp3" type="audio/mpeg">
+</audio>
+
+<button class="music" id="musicBtn" onclick="toggleMusic()">♫</button>
+
+<div class="progress" id="progress">01 / 07</div>
+
+<!-- SCREEN 1 -->
+<section class="screen active" id="s1">
+  <div class="content">
+    <div class="eyebrow">for someone special</div>
+
+    <h1 class="hero-title">
+      there's something<br>
+      <span class="italic">special</span> for you.
+    </h1>
+
+    <p class="sub">
+      I could've just wished you a happy birthday.<br>
+      But where's the fun in that?
+    </p>
+
+    <button onclick="go(2); startMusic()">enter →</button>
+  </div>
+</section>
+
+<!-- SCREEN 2 -->
+<section class="screen" id="s2">
+  <div class="content">
+    <div class="eyebrow">a little secret</div>
+
+    <h2 class="title">
+      I made something<br>
+      <span class="italic">for you.</span>
+    </h2>
+
+    <p class="sub">
+      There's only one tiny problem...
+      you're going to have to find it.
+    </p>
+
+    <button onclick="go(3)">show me</button>
+  </div>
+</section>
+
+<!-- SCREEN 3 -->
+<section class="screen" id="s3">
+  <div class="content">
+
+    <div class="fake-visual">
+      <div class="fake-word">not yet.</div>
+    </div>
+
+    <div class="eyebrow">attempt 01</div>
+
+    <h2 class="title">you really thought<br>that was it?</h2>
+
+    <div class="tease">cute.</div>
+
+    <button onclick="go(4)">try again →</button>
+  </div>
+</section>
+
+<!-- SCREEN 4 -->
+<section class="screen" id="s4">
+  <div class="content">
+
+    <div class="eyebrow">attempt 02</div>
+
+    <h2 class="title">
+      no.
+    </h2>
+
+    <p class="sub">
+      You're gonna have to work<br>
+      a little harder than that.
+    </p>
+
+    <button onclick="go(5)">again</button>
+  </div>
+</section>
+
+<!-- SCREEN 5 -->
+<section class="screen" id="s5">
+  <div class="content">
+
+    <div class="eyebrow">attempt 03</div>
+
+    <h2 class="title">
+      still trying?
+    </h2>
+
+    <p class="sub">
+      I didn't know you wanted it<br>
+      <span class="italic">this badly.</span>
+    </p>
+
+    <div class="tease">don't get shy now.</div>
+
+    <button onclick="go(6)">one more time →</button>
+  </div>
+</section>
+
+<!-- SCREEN 6 -->
+<section class="screen" id="s6">
+  <div class="content">
+
+    <div class="eyebrow">fine.</div>
+
+    <h2 class="title">
+      okay, okay...
+    </h2>
+
+    <p class="sub">
+      You've earned the real one.
+    </p>
+
+    <button onclick="go(7)">don't mess this up.</button>
+  </div>
+</section>
+
+<!-- SCREEN 7 — REAL REVEAL -->
+<section class="screen reveal" id="s7">
+  <div class="content">
+
+    <div class="eyebrow">finally</div>
+
+    <h1 class="big-birthday">happy birthday.</h1>
+
+    <div class="love">I love you so much.</div>
+
+    <div class="photo-placeholder">
+      <!-- পরে এখানে তোমাদের ছবি বসবে -->
+      your photo goes here
+    </div>
+
+    <button onclick="go(8)">there's more ↓</button>
+  </div>
+</section>
+
+<!-- SCREEN 8 — LETTER -->
+<section class="screen letter-screen" id="s8">
+  <div class="letter">
+
+    <div class="eyebrow">a little message</div>
+
+    <h2>
+      things I don't<br>
+      <span class="italic">say enough.</span>
+    </h2>
+
+    <p>
+      Dear you,
+    </p>
+
+    <p>
+      This is where your actual message goes.
+      I'll replace this with your own words later,
+      so it sounds exactly like you.
+    </p>
+
+    <p>
+      Until then, just know that having you in my life
+      means more to me than I probably know how to put
+      into words.
+    </p>
+
+    <p>
+      I hope this year gives you everything you've been
+      quietly wishing for.
+    </p>
+
+    <p class="signature">
+      Happy birthday, idiot.<br>
+      ♡
+    </p>
+
+  </div>
+</section>
+
+<script>
+let current = 1;
+
+function go(number){
+  const oldScreen = document.getElementById("s" + current);
+  const newScreen = document.getElementById("s" + number);
+
+  if(!newScreen) return;
+
+  oldScreen.classList.remove("active");
+
+  setTimeout(() => {
+    newScreen.classList.add("active");
+  }, 120);
+
+  current = number;
+
+  const progress = document.getElementById("progress");
+
+  if(number >= 7){
+    progress.style.display = "none";
+  }else{
+    progress.style.display = "block";
+    progress.textContent =
+      String(number).padStart(2,"0") + " / 06";
+  }
+
+  window.scrollTo(0,0);
+}
+
+const music = document.getElementById("music");
+const musicBtn = document.getElementById("musicBtn");
+
+function startMusic(){
+  music.volume = 0.35;
+
+  music.play().then(() => {
+    musicBtn.style.display = "flex";
+  }).catch(() => {
+    musicBtn.style.display = "flex";
+  });
+}
+
+function toggleMusic(){
+  if(music.paused){
+    music.play();
+    musicBtn.textContent = "♫";
+  }else{
+    music.pause();
+    musicBtn.textContent = "×";
+  }
+}
+</script>
+
+</body>
+  </html>
