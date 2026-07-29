@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Special Surprise for You ❤️</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif, Georgia, serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #feada6 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(10px);
+      padding: 30px 25px;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(255, 105, 180, 0.3);
+      max-width: 440px;
+      width: 100%;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    h1, h2 {
+      color: #ff3366;
+      margin-bottom: 15px;
+      font-size: 1.5rem;
+    }
+
+    p {
+      color: #4a4a4a;
+      font-size: 1.05rem;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .btn {
+      background: linear-gradient(45deg, #ff4b2b, #ff416c);
+      color: white;
+      border: none;
+      padding: 12px 28px;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 25px;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(255, 75, 43, 0.4);
+      transition: transform 0.2s, background 0.3s;
+      margin-top: 10px;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+    }
+
+    .img-box {
+      width: 100%;
+      max-height: 250px;
+      object-fit: cover;
+      border-radius: 15px;
+      margin-bottom: 15px;
+      border: 3px solid #ffb6c1;
+    }
+
+    /* LETTER CARD STYLING */
+    .letter-card {
+      background: #121212;
+      color: #e0e0e0;
+      text-align: left;
+      padding: 30px 25px;
+      border-radius: 12px;
+      border: 1px solid #333;
+      position: relative;
+      font-family: Georgia, serif;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .letter-title {
+      font-size: 1.8rem;
+      font-weight: normal;
+      color: #ffffff;
+      margin-bottom: 25px;
+      font-family: 'Times New Roman', serif;
+      border-top: 1px solid #444;
+      padding-top: 10px;
+    }
+
+    .letter-body {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: #cccccc;
+      margin-bottom: 20px;
+    }
+
+    .letter-body p {
+      color: #cccccc;
+      margin-bottom: 18px;
+      text-align: left;
+    }
+
+    .letter-sparkle {
+      color: #888;
+      font-size: 0.8rem;
+      display: inline-block;
+      margin: 5px 0;
+    }
+
+    .letter-footer {
+      border-bottom: 1px solid #444;
+      padding-bottom: 10px;
+      margin-top: 25px;
+    }
+
+    .letter-footer h3 {
+      font-size: 1.5rem;
+      font-style: italic;
+      color: #ffffff;
+      font-weight: normal;
+      margin-bottom: 8px;
+    }
+
+    .letter-footer h2 {
+      font-size: 1.6rem;
+      font-style: italic;
+      color: #ffffff;
+      font-weight: bold;
+    }
+
+    .step {
+      display: none;
+    }
+
+    .step.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Music -->
+  <audio id="bgMusic" loop>
+    <source src="bgm.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="card" id="mainContainer">
+    
+    <!-- PAGE 1 -->
+    <div id="step1" class="step active">
+      <h1>Hey Handsome/Gorgeous! ✨😏</h1>
+      <p>There's something super secret waiting for you... 👀💖</p>
+      <button class="btn" onclick="nextStep(1)">Really? What is it? 🙈</button>
+    </div>
+
+    <!-- PAGE 2 -->
+    <div id="step2" class="step">
+      <h1>Hehehe 😄😈</h1>
+      <p>I built a tiny world just for you! Think you deserve to see it? 😜✨</p>
+      <button class="btn" onclick="nextStep(2)">Of course I do! 😤❤️</button>
+    </div>
+
+    <!-- PAGE 3 (Spoiler / Joke Image) -->
+    <div id="step3" class="step">
+      <h1>Tadaaa! 🎉🤡</h1>
+      <img src="joke.jpg" alt="Funny Pic" class="img-box">
+      <p>Aww, did you think it was going to be that easy? Nahhh, bad luck! 😜 mini-heart attack, huh? 🤭</p>
+      <button class="btn" onclick="nextStep(3)">Hey! Stop playing around 🙄🔥</button>
+    </div>
+
+    <!-- PAGE 4 -->
+    <div id="step4" class="step">
+      <h1>Wait, hold on... ✋😏</h1>
+      <p>Ato impatient keno, huh? Ki visual dekhar ato iccha? Thako ektu kache... 😈🔥</p>
+      <button class="btn" onclick="nextStep(4)">Aro kache ashlam... 🫣</button>
+    </div>
+
+    <!-- PAGE 5 -->
+    <div id="step5" class="step">
+      <h1>Uff, slow down! 💋🔥</h1>
+      <p>Ato druto hole cholbe? Patience is key to good surprises, baby~ 😏✨</p>
+      <button class="btn" onclick="nextStep(5)">Aar koita click, bolo? 😭❤️</button>
+    </div>
+
+    <!-- PAGE 6 -->
+    <div id="step6" class="step">
+      <h1>You look cute when you get annoyed 🥹🤌</h1>
+      <p>Ektu dussthu-mi na korle ki cholbe bolo? But okay, maybe I'll let you pass next time... or maybe not 😈😜</p>
+      <button class="btn" onclick="nextStep(6)">Please, show me now! 🥺💖</button>
+    </div>
+
+    <!-- PAGE 7 -->
+    <div id="step7" class="step">
+      <h1>Promise me one thing first 🤫✨</h1>
+      <p>You won't smile too wide, okay? (Because your smile literally melts me 🙈🔥)</p>
+      <button class="btn" onclick="nextStep(7)">Promised! Red button click 🔴💋</button>
+    </div>
+
+    <!-- PAGE 8 -->
+    <div id="step8" class="step">
+      <h1>Okay, last tease, I swear! 🤭❤️</h1>
+      <p>Are you officially ready for the real deal now? 😏🔥 Close your eyes and click!</p>
+      <button class="btn" onclick="nextStep(8)">Closed my eyes! 🙈✨</button>
+    </div>
+
+    <!-- PAGE 9 (Grand Photo Reveal) -->
+    <div id="step9" class="step">
+      <h1>🎉 Happy Birthday, My Love! ❤️🎂</h1>
+      <img src="our_photo.jpg" alt="Our Photo" class="img-box">
+      <p>I love you so, so much! ❤️ Tumi amr life-er shobcheye beautiful part. ✨💖</p>
+      <button class="btn" onclick="nextStep(9)">Wait, there's a letter for you 💌🔥</button>
+    </div>
+
+    <!-- PAGE 10 (The Exact Letter from Image) -->
+    <div id="step10" class="step">
+      <div class="letter-card">
+        <div class="letter-title">
+          things I don't say enough. ♡
+        </div>
+
+        <div class="letter-body">
+          <p>Dear you,</p>
+          <div class="letter-sparkle">✦</div>
+          <p>This is the part where I'll stop teasing you for a second. Because underneath all the nonsense, you really are someone incredibly special to me.</p>
+
+          <p>I hope this birthday brings you the kind of happiness that stays long after the candles are gone. I hope you get everything you've been quietly wishing for — and maybe a little more than that. ✦</p>
+
+          <p>Thank you for being you. For the memories, the laughs, the stupid little moments, and all the things that somehow became my favourite things.</p>
+
+          <p>And if you ever forget how loved you are, I hope you come back to this little corner of the internet and remember.</p>
+        </div>
+
+        <div class="letter-footer">
+          <h3>Happy birthday, idiot. ♡</h3>
+          <h2>I love you. Always.</h2>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function nextStep(current) {
+      // Start music on first click
+      if (current === 1) {
+        var music = document.getElementById("bgMusic");
+        music.play().catch(function(error) {
+          console.log("Audio play failed:", error);
+        });
+      }
+
+      // Hide current step
+      document.getElementById('step' + current).classList.remove('active');
+      
+      // Expand container style for letter view on Page 10
+      if (current === 9) {
+        document.getElementById('mainContainer').style.maxWidth = '500px';
+        document.getElementById('mainContainer').style.background = 'transparent';
+        document.getElementById('mainContainer').style.padding = '0';
+        document.getElementById('mainContainer').style.boxShadow = 'none';
+      }
+
+      // Show next step
+      var next = current + 1;
+      document.getElementById('step' + next).classList.add('active');
+    }
+  </script>
+</body>
+  </html>
+  
